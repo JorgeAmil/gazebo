@@ -1,0 +1,8 @@
+prefix=/home/jorge/gazebo/devel
+
+Name: turtlebot_gazebo_multiple
+Description: Description of turtlebot_gazebo_multiple
+Version: 2.2.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

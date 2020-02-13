@@ -1,0 +1,140 @@
+roslaunch turtlebot_gazebo_multiple create_multi_robot.launch 
+... logging to /home/jorge/.ros/log/fcb7895e-4e51-11ea-9af6-78e400294e1d/roslaunch-jorge-HP-Pavilion-dv6-Notebook-PC-16389.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+xacro: Traditional processing is deprecated. Switch to --inorder processing!
+To check for compatibility of your document, use option --check-order.
+For more infos, see http://wiki.ros.org/xacro#Processing_Order
+xacro.py is deprecated; please use xacro instead
+started roslaunch server http://jorge-HP-Pavilion-dv6-Notebook-PC:42335/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /robot1/depthimage_to_laserscan/output_frame_id: /robot1_tf/camera...
+ * /robot1/depthimage_to_laserscan/range_min: 0.45
+ * /robot1/depthimage_to_laserscan/scan_height: 10
+ * /robot1/robot_pose_ekf/freq: 30.0
+ * /robot1/robot_pose_ekf/imu_used: False
+ * /robot1/robot_pose_ekf/odom_used: True
+ * /robot1/robot_pose_ekf/publish_tf: True
+ * /robot1/robot_pose_ekf/sensor_timeout: 1.0
+ * /robot1/robot_pose_ekf/vo_used: False
+ * /robot1/robot_state_publisher/publish_frequency: 30.0
+ * /robot1/tf_prefix: robot1_tf
+ * /robot2/depthimage_to_laserscan/output_frame_id: /robot2_tf/camera...
+ * /robot2/depthimage_to_laserscan/range_min: 0.45
+ * /robot2/depthimage_to_laserscan/scan_height: 10
+ * /robot2/robot_pose_ekf/freq: 30.0
+ * /robot2/robot_pose_ekf/imu_used: False
+ * /robot2/robot_pose_ekf/odom_used: True
+ * /robot2/robot_pose_ekf/publish_tf: True
+ * /robot2/robot_pose_ekf/sensor_timeout: 1.0
+ * /robot2/robot_pose_ekf/vo_used: False
+ * /robot2/robot_state_publisher/publish_frequency: 30.0
+ * /robot2/tf_prefix: robot2_tf
+ * /robot_description: <?xml version="1....
+ * /rosdistro: kinetic
+ * /rosversion: 1.12.14
+ * /use_sim_time: True
+
+NODES
+  /robot2/
+    depthimage_to_laserscan (nodelet/nodelet)
+    laserscan_nodelet_manager (nodelet/nodelet)
+    robot_pose_ekf (robot_pose_ekf/robot_pose_ekf)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    spawn_minibot_model (gazebo_ros/spawn_model)
+  /robot1/
+    depthimage_to_laserscan (nodelet/nodelet)
+    laserscan_nodelet_manager (nodelet/nodelet)
+    robot_pose_ekf (robot_pose_ekf/robot_pose_ekf)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    spawn_minibot_model (gazebo_ros/spawn_model)
+  /
+    gazebo (gazebo_ros/gzserver)
+    gazebo_gui (gazebo_ros/gzclient)
+
+ROS_MASTER_URI=http://localhost:11311
+
+process[gazebo-1]: started with pid [16425]
+process[gazebo_gui-2]: started with pid [16429]
+process[robot1/spawn_minibot_model-3]: started with pid [16433]
+process[robot1/robot_state_publisher-4]: started with pid [16436]
+process[robot1/laserscan_nodelet_manager-5]: started with pid [16437]
+process[robot1/depthimage_to_laserscan-6]: started with pid [16438]
+process[robot1/robot_pose_ekf-7]: started with pid [16459]
+process[robot2/spawn_minibot_model-8]: started with pid [16468]
+process[robot2/robot_state_publisher-9]: started with pid [16473]
+process[robot2/laserscan_nodelet_manager-10]: started with pid [16490]
+process[robot2/depthimage_to_laserscan-11]: started with pid [16501]
+process[robot2/robot_pose_ekf-12]: started with pid [16503]
+[ INFO] [1581592844.317228407]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1581592844.338003555]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[ INFO] [1581592844.473049344]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1581592844.479030324]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+SpawnModel script started
+SpawnModel script started
+[INFO] [1581592844.966766, 0.000000]: Loading model XML from ros parameter
+[INFO] [1581592844.987534, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
+[INFO] [1581592845.117126, 0.000000]: Loading model XML from ros parameter
+[INFO] [1581592845.136937, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
+[INFO] [1581592845.755939, 0.000000]: Calling service /gazebo/spawn_urdf_model
+[INFO] [1581592845.862439, 28.910000]: Spawn status: SpawnModel: Entity pushed to spawn queue, but spawn service timed out waiting for entity to appear in simulation under the name robot2
+[INFO] [1581592845.902428, 28.910000]: Calling service /gazebo/spawn_urdf_model
+[robot2/spawn_minibot_model-8] process has finished cleanly
+log file: /home/jorge/.ros/log/fcb7895e-4e51-11ea-9af6-78e400294e1d/robot2-spawn_minibot_model-8*.log
+[ INFO] [1581592846.938810619, 28.910000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot2/'
+[ INFO] [1581592846.945291847, 28.910000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot2/'
+[ INFO] [1581592846.952888502, 28.910000000]: Camera Plugin (ns = /robot2/)  <tf_prefix_>, set to "robot2_tf"
+[ INFO] [1581592846.961487833, 28.910000000]: Camera Plugin (ns = /robot2/)  <tf_prefix_>, set to "robot2_tf"
+[ INFO] [1581592846.973324157, 28.910000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot2/'
+[ INFO] [1581592847.015395267, 28.910000000]: Camera Plugin (ns = /robot2/)  <tf_prefix_>, set to "robot2_tf"
+[ INFO] [1581592847.443267661, 28.910000000]: Starting plugin Kobuki(ns = /robot2//)
+[ WARN] [1581592847.443427132, 28.910000000]: Kobuki(ns = /robot2//): missing <rosDebugLevel> default is na
+[ INFO] [1581592847.448384850, 28.910000000]: Kobuki(ns = /robot2//): <tf_prefix> = robot2_tf
+[ INFO] [1581592847.449188655, 28.910000000]: Will publish tf. [robot2]
+[ INFO] [1581592847.455397833, 28.910000000]: Kobuki(ns = /robot2//): Advertise joint_states[joint_states]!
+[ INFO] [1581592847.458420021, 28.910000000]: Kobuki(ns = /robot2//): Advertise Odometry[odom]!
+[ INFO] [1581592847.477204279, 28.910000000]: Kobuki(ns = /robot2//): Try to subscribe to mobile_base/commands/motor_power!
+[ INFO] [1581592847.497889161, 28.910000000]: Kobuki(ns = /robot2//): Try to subscribe to mobile_base/commands/reset_odometry!
+[ INFO] [1581592847.518162178, 28.910000000]: Kobuki(ns = /robot2//): Try to subscribe to mobile_base/commands/velocity!
+[ INFO] [1581592847.520461298, 28.910000000]: Kobuki(ns = /robot2//): Advertise Cliff[mobile_base/events/cliff]!
+[ INFO] [1581592847.522679215, 28.910000000]: Kobuki(ns = /robot2//): Advertise Bumper[mobile_base/events/bumper]!
+[ INFO] [1581592847.527258571, 28.910000000]: Kobuki(ns = /robot2//): Advertise IMU[mobile_base/sensors/imu_data]!
+[ INFO] [1581592847.527539689, 28.910000000]: GazeboRosKobuki plugin ready to go! [robot2]
+[ INFO] [1581592847.568121414, 28.940000000]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1581592847.570410261, 28.940000000]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+libGL error: failed to create drawable
+libGL error: failed to create drawable
+[INFO] [1581592848.562438, 29.090000]: Spawn status: SpawnModel: Successfully spawned entity
+[ INFO] [1581592848.632624467, 29.090000000]: Physics dynamic reconfigure ready.
+[ INFO] [1581592848.637306600, 29.090000000]: Physics dynamic reconfigure ready.
+[robot1/spawn_minibot_model-3] process has finished cleanly
+log file: /home/jorge/.ros/log/fcb7895e-4e51-11ea-9af6-78e400294e1d/robot1-spawn_minibot_model-3*.log
+[ INFO] [1581592848.984213013, 29.090000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot1/'
+[ INFO] [1581592848.988504514, 29.090000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot1/'
+[ INFO] [1581592848.992952518, 29.090000000]: Camera Plugin: Using the 'robotNamespace' param: '/robot1/'
+[ INFO] [1581592848.995667097, 29.090000000]: Camera Plugin (ns = /robot1/)  <tf_prefix_>, set to "robot1_tf"
+[ INFO] [1581592849.016251371, 29.090000000]: Camera Plugin (ns = /robot1/)  <tf_prefix_>, set to "robot1_tf"
+[ INFO] [1581592849.021287316, 29.090000000]: Camera Plugin (ns = /robot1/)  <tf_prefix_>, set to "robot1_tf"
+[ INFO] [1581592849.073742631, 29.090000000]: Starting plugin Kobuki(ns = /robot1//)
+[ WARN] [1581592849.073849702, 29.090000000]: Kobuki(ns = /robot1//): missing <rosDebugLevel> default is na
+[ INFO] [1581592849.082578424, 29.090000000]: Kobuki(ns = /robot1//): <tf_prefix> = robot1_tf
+[ INFO] [1581592849.082853113, 29.090000000]: Will publish tf. [robot1]
+[ INFO] [1581592849.099014370, 29.090000000]: Kobuki(ns = /robot1//): Advertise joint_states[joint_states]!
+[ INFO] [1581592849.108182296, 29.090000000]: Kobuki(ns = /robot1//): Advertise Odometry[odom]!
+[ INFO] [1581592849.143131973, 29.090000000]: Kobuki(ns = /robot1//): Try to subscribe to mobile_base/commands/motor_power!
+[ INFO] [1581592849.169096840, 29.090000000]: Kobuki(ns = /robot1//): Try to subscribe to mobile_base/commands/reset_odometry!
+[ INFO] [1581592849.194423235, 29.090000000]: Kobuki(ns = /robot1//): Try to subscribe to mobile_base/commands/velocity!
+[ INFO] [1581592849.199633596, 29.090000000]: Kobuki(ns = /robot1//): Advertise Cliff[mobile_base/events/cliff]!
+[ INFO] [1581592849.214060016, 29.090000000]: Kobuki(ns = /robot1//): Advertise Bumper[mobile_base/events/bumper]!
+[ INFO] [1581592849.225841827, 29.090000000]: Kobuki(ns = /robot1//): Advertise IMU[mobile_base/sensors/imu_data]!
+[ INFO] [1581592849.225972373, 29.090000000]: GazeboRosKobuki plugin ready to go! [robot1]
+gzserver: /build/ogre-1.9-mqY1wq/ogre-1.9-1.9.0+dfsg1/OgreMain/src/OgreRenderSystem.cpp:546: virtual void Ogre::RenderSystem::setDepthBufferFor(Ogre::RenderTarget*): Assertion `bAttached && "A new DepthBuffer for a RenderTarget was created, but after creation" "it says it's incompatible with that RT"' failed.
+Aborted (core dumped)
+[gazebo-1] process has died [pid 16425, exit code 134, cmd /opt/ros/kinetic/lib/gazebo_ros/gzserver -e ode /home/jorge/gazebo/src/turtlebot_simulator/turtlebot_gazebo_multiple/launch/race.sdf __name:=gazebo __log:=/home/jorge/.ros/log/fcb7895e-4e51-11ea-9af6-78e400294e1d/gazebo-1.log].
+log file: /home/jorge/.ros/log/fcb7895e-4e51-11ea-9af6-78e400294e1d/gazebo-1*.log

@@ -1,0 +1,8 @@
+prefix=/home/jorge/gazebo/install
+
+Name: send_velocity_commands
+Description: Description of send_velocity_commands
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
