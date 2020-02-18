@@ -14,9 +14,9 @@ cd ..
 
 catkin_make
 
-Si no funciona el comando anterior desde ~/gazebo/src/ escribir catkin_init_workspace
+Si no funciona el comando anterior desde "~/gazebo/src/" escribir "catkin_init_workspace"
 
-En cada nueva terminal desde ~/gazebo/ escribir source devel/setup.bash y despues
+En cada nueva terminal desde "~/gazebo/" escribir "source devel/setup.bash" y despues
 
 roslaunch turtlebot_gazebo_multiple create_multi_robot.launch
 
