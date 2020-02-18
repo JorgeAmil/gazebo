@@ -1,8 +1,0 @@
-prefix=/home/jorge/gazebo/install
-
-Name: listener
-Description: Description of listener
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,2 +1,0 @@
-listener:send_velocity_commands:turtlebot_simulator/turtlebot_gazebo:turtlebot_simulator/turtlebot_gazebo_multiple:turtlebot_simulator/turtlebot_simulator:turtlebot_simulator/turtlebot_stage:turtlebot_simulator/turtlebot_stdr
--DCATKIN_DEVEL_PREFIX=/home/jorge/gazebo/devel -DCMAKE_INSTALL_PREFIX=/home/jorge/gazebo/install -G Unix Makefiles
