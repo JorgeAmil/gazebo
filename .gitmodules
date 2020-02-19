@@ -1,0 +1,3 @@
+[submodule "src/turtlebot_simulator"]
+	path = src/turtlebot_simulator
+	url = https://github.com/turtlebot/turtlebot_simulator
