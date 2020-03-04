@@ -24,3 +24,9 @@ rosrun send_velocity_commands send_velocity_commands_node
 
 rosrun listener listener
 
+Para usar los modulos con tensorflow lanzar:
+
+source ~/tensorflow/bin/activate
+
+donde tensorflow es sustituido por el nombre del entorno virtual de python con el que se instala tensorflow
+

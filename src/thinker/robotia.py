@@ -11,12 +11,12 @@ from std_msgs.msg import String
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
-#import tensorflow as tf
+import tensorflow as tf
 #from tensorflow.models.image.imagenet import classify_image
 
 class RosTensorFlow():
   def __init__(self):
-    print("init")
+    print(tf.__version__)
 #    classify_image.maybe_download_and_extract()
 #    self._session = tf.Session()
 #    classify_image.create_graph()
@@ -28,7 +28,7 @@ class RosTensorFlow():
 #    self.use_top_k = rospy.get_param('~use_top_k', 5)
 
   def callback(self, image_msg):
-    print("callback")
+    print(tf.__version__)
 #    cv_image = self._cv_bridge.imgmsg_to_cv2(image_msg, "bgr8")
 #    # copy from
 #    # https://github.com/tensorflow/tensorflow/blob/master/tensorflow/models/image/imagenet/classify_image.py
