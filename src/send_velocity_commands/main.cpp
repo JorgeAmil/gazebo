@@ -42,16 +42,16 @@ public:
 
       base_cmd.linear.x = base_cmd.linear.y = base_cmd.angular.z = 0;   
       //move forward
-      if(cmd[0]=='+'){
+      if(cmd[0]=='w'){
         base_cmd.linear.x = 0.25;
       } 
       //turn left (yaw) and drive forward at the same time
-      else if(cmd[0]=='l'){
+      else if(cmd[0]=='a'){
         base_cmd.angular.z = 0.75;
         base_cmd.linear.x = 0.25;
       } 
       //turn right (yaw) and drive forward at the same time
-      else if(cmd[0]=='r'){
+      else if(cmd[0]=='d'){
         base_cmd.angular.z = -0.75;
         base_cmd.linear.x = 0.25;
       } 
