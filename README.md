@@ -30,3 +30,6 @@ source ~/tensorflow/bin/activate
 
 donde tensorflow es sustituido por el nombre del entorno virtual de python con el que se instala tensorflow
 
+http://projectsfromtech.blogspot.com/2017/10/visual-object-recognition-in-ros-using.html
+https://github.com/osrf/tensorflow_object_detector/tree/master/src/object_detection
+
