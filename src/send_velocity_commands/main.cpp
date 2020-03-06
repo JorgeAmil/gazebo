@@ -49,7 +49,8 @@ public:
         std::cout << "unknown command:" << cmd << "\n";
         continue;
       }
-      base_stamp_cmd.twist.linear.x = base_stamp_cmd.twist.linear.y = base_stamp_cmd.twist.angular.z = 0;   
+      base_stamp_cmd.twist.linear.x = base_stamp_cmd.twist.linear.y = base_stamp_cmd.twist.angular.z = 0;
+      base_stamp_cmd.header.stamp = ros::Time::now();  
       base_cmd.linear.x = base_cmd.linear.y = base_cmd.angular.z = 0;   
     
       //move forward
