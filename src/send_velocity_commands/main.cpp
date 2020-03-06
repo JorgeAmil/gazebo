@@ -1,7 +1,8 @@
 #include <iostream>
 
 #include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
+
+#include <geometry_msgs/TwistStamped.h>
 
 class RobotDriver
 {
@@ -17,7 +18,7 @@ public:
   {
     nh_ = nh;
     //set up the publisher for the cmd_vel topic
-    cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/robot1/mobile_base/commands/velocity", 1);
+    cmd_vel_pub_ = nh_.advertise<geometry_msgs::TwistStamped>("/robot1/mobile_base/commands/velocity", 1);
   }
 
   //! Loop forever while sending drive commands based on keyboard input
@@ -28,7 +29,7 @@ public:
       "'r' to turn right, '.' to exit.\n";
 
     //we will be sending commands of type "twist"
-    geometry_msgs::Twist base_cmd;
+    geometry_msgs::TwistStamped base_cmd;  
 
     char cmd[50];
     while(nh_.ok()){
@@ -39,21 +40,22 @@ public:
         std::cout << "unknown command:" << cmd << "\n";
         continue;
       }
-
-      base_cmd.linear.x = base_cmd.linear.y = base_cmd.angular.z = 0;   
+      base_cmd.twist.linear.x = base_cmd.twist.linear.y = base_cmd.twist.angular.z = 0;   
+      //std::cout << base_cmd.twist.linear.x << std::endl;
+    
       //move forward
-      if(cmd[0]=='w'){
-        base_cmd.linear.x = 0.25;
+      if(cmd[0]=='+'){
+        base_cmd.twist.linear.x = 0.25;
       } 
       //turn left (yaw) and drive forward at the same time
-      else if(cmd[0]=='a'){
-        base_cmd.angular.z = 0.75;
-        base_cmd.linear.x = 0.25;
+      else if(cmd[0]=='l'){
+        base_cmd.twist.angular.z = 0.75;
+        base_cmd.twist.linear.x = 0.25;
       } 
       //turn right (yaw) and drive forward at the same time
-      else if(cmd[0]=='d'){
-        base_cmd.angular.z = -0.75;
-        base_cmd.linear.x = 0.25;
+      else if(cmd[0]=='r'){
+        base_cmd.twist.angular.z = -0.75;
+        base_cmd.twist.linear.x = 0.25;
       } 
       //quit
       else if(cmd[0]=='.'){
@@ -61,6 +63,9 @@ public:
       }
 
       //publish the assembled command
+      std::cout << base_cmd.twist.linear.x  << 
+        ",  " << base_cmd.twist.linear.y  <<
+        ",  " << base_cmd.twist.angular.z << "\n";
       cmd_vel_pub_.publish(base_cmd);
     }
     return true;
