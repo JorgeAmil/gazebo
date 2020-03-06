@@ -16,6 +16,7 @@ using namespace message_filters;
 
 void callback(const ImageConstPtr& image, const geometry_msgs::TwistStamped::ConstPtr& vel)
 {
+  std::cout << "entra\n";
  ROS_INFO("Synchronization successful");
 }
 
