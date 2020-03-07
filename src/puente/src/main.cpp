@@ -1,56 +1,77 @@
+#include <stdio.h>
+#include <string>
 #include <ros/ros.h>
-
-#include <image_transport/image_transport.h>
-#include <cv_bridge/cv_bridge.h>
-
+#include <sensor_msgs/image_encodings.h>
+// procesar imagen
+#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <geometry_msgs/TwistStamped.h>
-
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
 #include <message_filters/subscriber.h>
+// synchronizer
 #include <message_filters/time_synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
+#include <geometry_msgs/TwistStamped.h>
 
-#include <stdio.h>
+const std::string rutaImagenes = "/home/alex/Documentos/gazebo/imagen_data/";
+const char* rutaMap = "/home/alex/Documentos/gazebo/imagen_data/imagen_twistCallocidad.data";
+int contadorDatos = 0; 
 
-using namespace std;
-using namespace sensor_msgs;
-using namespace message_filters;
-
-unsigned int contadorDatos = 0;
-
-void callback(const sensor_msgs::ImageConstPtr& msg, const geometry_msgs::TwistStampedConstPtr& vel)
-{
-  // save velv data to file with format: counter x y z
+void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::TwistStampedConstPtr& twistCall)
+{    
+  // write : counter x y z
   FILE* imagenDataFile;
-  imagenDataFile = fopen( "imagen_velocidad.data", "a" );
-  fprintf( imagenDataFile,
-    "%u %f %f %f\n",
-    contadorDatos, vel->twist.linear.x, vel->twist.linear.y, vel->twist.angular.z
+  imagenDataFile = fopen( rutaMap, "a" );
+  fprintf( imagenDataFile, "%u %f %f %f\n",
+    contadorDatos, twistCall->twist.linear.x, twistCall->twist.linear.y, twistCall->twist.angular.z
     );
   fclose( imagenDataFile );
-  // save image
+
+  // encode imageCall
+  cv_bridge::CvImageConstPtr cv_ptr;
+  try {
+    cv_ptr = cv_bridge::toCvShare(imageCall, sensor_msgs::image_encodings::BGR8);
+  }
+  catch (cv_bridge::Exception& e) {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", imageCall->encoding.c_str());
+  }
   
+  // save image
+  cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".bmp", cv_ptr->image);
+
   ++contadorDatos;
 }
 
-int main(int argc, char **argv)
+/*
+Al crear una instancia se subscribe al nodo que envia
+el TwistStamp y a la imagen del turtlebot.
+La sync_policies sirve para que al comparar los timestamp
+se haga de forma aproximada.
+*/
+class ImageConverter
 {
-  ros::init(argc, argv, "listener");
+private:
   ros::NodeHandle nh;
-  message_filters::Subscriber<sensor_msgs::Image> sub_1_;
-  message_filters::Subscriber<geometry_msgs::TwistStamped> sub_2_;
-  //ros::Subscriber sub = n.subscribe("chatter", 1000, callback);
-
+  message_filters::Subscriber<sensor_msgs::Image> sub_image;
+  message_filters::Subscriber<geometry_msgs::TwistStamped> sub_twist;
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, geometry_msgs::TwistStamped> MySyncPolicy;
   typedef message_filters::Synchronizer<MySyncPolicy> Sync;
   boost::shared_ptr<Sync> sync_;
 
-  sub_1_.subscribe(nh, "robot1/camera/rgb/image_raw", 1);
-  sub_2_.subscribe(nh, "chatter", 1);
-  sync_.reset(new Sync(MySyncPolicy(10), sub_1_, sub_2_));
-  sync_->registerCallback(boost::bind(callback, _1, _2));
+public:
+  ImageConverter()
+  {
+    sub_image.subscribe(nh, "robot1/camera/rgb/image_raw", 1);
+    sub_twist.subscribe(nh, "chatter", 1);
+    sync_.reset(new Sync(MySyncPolicy(10), sub_image, sub_twist));
+    sync_->registerCallback(boost::bind(callback, _1, _2));
+  }
+};
 
-ros::spin();
-
+int main(int argc, char** argv)
+{
+  ros::init(argc, argv, "image_converter");
+  ImageConverter ic;
+  ros::spin();
   return 0;
 }
