@@ -30,6 +30,7 @@ TeleopTurtle::TeleopTurtle():
   nh_.param("axis_angular", angular_, angular_);
   nh_.param("scale_angular", a_scale_, a_scale_);
   nh_.param("scale_linear", l_scale_, l_scale_);
+  
   std::cout << "axis_linear" << linear_
  << "axis_angular"  << angular_
  << "scale_angular"  << a_scale_
@@ -42,9 +43,19 @@ TeleopTurtle::TeleopTurtle():
 
 void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
-  twist.angular.z = /*a_scale_**/joy->axes[angular_];
-  twist.linear.x =  /*l_scale_**/joy->axes[linear_];
-  std::cout <<"a: "<< twist.angular.z  << "l: " << twist.linear.x << "\n";
+  /*
+  for ( int i = 0; i <= 19; ++i ) {
+    if ( i % 10 == 0 ) {
+      std::cout << "\n";
+    }
+    std::cout << i << ": " <<  joy->axes[ i ] << " ";
+  }
+  std::cout << "\n";
+  */
+  twist.angular.z = joy->axes[3]; // joy derecho
+  twist.linear.x =  joy->axes[1] + joy->axes[0]; // joy izquierdo
+  // twist.linear.x =  0.2;
+  std::cout <<"a: "<< twist.angular.z  << " l: " << twist.linear.x << "\n";
 
   vel_pub_.publish(twist);
 }

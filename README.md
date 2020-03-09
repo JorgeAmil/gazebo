@@ -33,3 +33,17 @@ donde tensorflow es sustituido por el nombre del entorno virtual de python con e
 http://projectsfromtech.blogspot.com/2017/10/visual-object-recognition-in-ros-using.html
 https://github.com/osrf/tensorflow_object_detector/tree/master/src/object_detection
 
+# joy
+Tutorial instalacion
+```sh
+https://wiki.ros.org/joy/Tutorials
+http://library.isr.ist.utl.pt/docs/roswiki/ps3joy.html
+```
+Una vez detecta el mando levantar el nodo
+```sh
+rosrun joy joy_node
+```
+Mostrar valores del nodo
+```sh
+rostopic echo joy
+```
