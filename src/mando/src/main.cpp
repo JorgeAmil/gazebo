@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/TwistStamped.h>
 #include <sensor_msgs/Joy.h>
 
 class TeleopTurtle
@@ -18,6 +19,9 @@ private:
   ros::Subscriber joy_sub_;
 
   geometry_msgs::Twist twist;
+  geometry_msgs::TwistStamped twistStamp;
+
+  ros::Publisher cmd_vel_pub_;
 };
 
 
@@ -39,6 +43,8 @@ TeleopTurtle::TeleopTurtle():
   vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/robot1/mobile_base/commands/velocity", 1);
   
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopTurtle::joyCallback, this);
+
+  cmd_vel_pub_ = nh_.advertise<geometry_msgs::TwistStamped>("chatter", 1);
 }
 
 void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
@@ -52,12 +58,14 @@ void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
   }
   std::cout << "\n";
   */
-  twist.angular.z = joy->axes[3]; // joy derecho
-  twist.linear.x =  joy->axes[1] + joy->axes[0]; // joy izquierdo
+  twist.angular.z = twistStamp.twist.angular.z = joy->axes[3]; // joy derecho
+  twist.linear.x  = twistStamp.twist.linear.x  = joy->axes[1] + joy->axes[0]; // joy izquierdo
+  twistStamp.header.stamp = ros::Time::now();
   // twist.linear.x =  0.2;
   std::cout <<"a: "<< twist.angular.z  << " l: " << twist.linear.x << "\n";
 
   vel_pub_.publish(twist);
+  cmd_vel_pub_.publish(twistStamp);
 }
 
 
