@@ -11,19 +11,24 @@
 // synchronizer
 #include <message_filters/time_synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
-#include <geometry_msgs/TwistStamped.h>
+// 
+#include <geometry_msgs/Twist.h>
+#include <sensor_msgs/Joy.h>
 
 const std::string rutaImagenes = "/home/alex/Documentos/gazebo/imagen_data/";
 const char* rutaMap = "/home/alex/Documentos/gazebo/imagen_data/imagen_twistCallocidad.data";
 int contadorDatos = 0; 
 
-void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::TwistStampedConstPtr& twistCall)
-{    
+void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::JoyConstPtr& joy)
+{
+  if ( joy->axes[ 2 ] == 1 ) {
+    return;
+  }
   // write : counter x y z
   FILE* imagenDataFile;
   imagenDataFile = fopen( rutaMap, "a" );
-  fprintf( imagenDataFile, "%u %f %f %f\n",
-    contadorDatos, twistCall->twist.linear.x, twistCall->twist.linear.y, twistCall->twist.angular.z
+  fprintf( imagenDataFile, "%u %f %f\n",
+    contadorDatos, joy->axes[1] + joy->axes[0], joy->axes[3]
     );
   fclose( imagenDataFile );
 
@@ -40,6 +45,8 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::
   cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".bmp", cv_ptr->image);
 
   ++contadorDatos;
+
+  std::cout << "nueva captura\n";
 }
 
 /*
@@ -53,8 +60,8 @@ class ImageConverter
 private:
   ros::NodeHandle nh;
   message_filters::Subscriber<sensor_msgs::Image> sub_image;
-  message_filters::Subscriber<geometry_msgs::TwistStamped> sub_twist;
-  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, geometry_msgs::TwistStamped> MySyncPolicy;
+  message_filters::Subscriber<sensor_msgs::Joy> sub_twist;
+  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Joy> MySyncPolicy;
   typedef message_filters::Synchronizer<MySyncPolicy> Sync;
   boost::shared_ptr<Sync> sync_;
 
