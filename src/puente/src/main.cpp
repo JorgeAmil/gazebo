@@ -42,7 +42,7 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::Jo
   }
   
   // save image
-  cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".bmp", cv_ptr->image);
+  cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
 
   ++contadorDatos;
 
