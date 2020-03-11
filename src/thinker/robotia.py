@@ -2,8 +2,9 @@
 
 # link de referencia
 # http://projectsfromtech.blogspot.com/2017/10/visual-object-recognition-in-ros-using.html
-# parece que tensorflow peta
 # https://github.com/kungfrank/ros_inception_v3/blob/master/classify_image.py
+
+# https://www.pyimagesearch.com/2019/01/21/regression-with-keras/
 
 import rospy
 from sensor_msgs.msg import Image
