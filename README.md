@@ -60,3 +60,10 @@ Mostrar valores del nodo
 ```sh
 rostopic echo joy
 ```
+
+# calibrar
+
+rosrun camera_calibration cameracalibrator.py --approximate 0.1 --size 8x6
+--square 0.108 right:=/robot1/trasera2/trasera2/rgb/image_raw
+left:=/robot1/trasera1/trasera1/rgb/image_raw right_camera:=/robot1/trasera2/
+left_camera:=/robot1/trasera1

@@ -58,7 +58,7 @@ void TeleopTurtle::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
   std::cout << "\n"; */
   
   twist.angular.z = joy->axes[3]; // joy derecho
-  twist.linear.x  = joy->axes[1] + joy->axes[0]; // joy izquierdo
+  twist.linear.x  = 0.3;//joy->axes[1] + joy->axes[0]; // joy izquierdo
 
   vel_pub_.publish(twist);
   cmd_vel_pub_.publish(joy);
