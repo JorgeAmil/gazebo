@@ -14,8 +14,8 @@
 // 
 #include <geometry_msgs/TwistStamped.h>
 
-const std::string rutaImagenes = "/home/alex/Documentos/gazebo/imagen_data/";
-const char* rutaMap = "/home/alex/Documentos/gazebo/imagen_data/imagen_twistCallocidad.data";
+const std::string rutaImagenes = "/home/jorge/gazebo/imagen_data/";
+const char* rutaMap = "/home/jorge/gazebo/imagen_data/imagen_twistCallocidad.data";
 
 int contadorDatos = 0; 
 
