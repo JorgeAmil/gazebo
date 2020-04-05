@@ -12,25 +12,26 @@
 #include <message_filters/time_synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
 // 
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/Joy.h>
+#include <geometry_msgs/TwistStamped.h>
 
 const std::string rutaImagenes = "/home/alex/Documentos/gazebo/imagen_data/";
 const char* rutaMap = "/home/alex/Documentos/gazebo/imagen_data/imagen_twistCallocidad.data";
+
 int contadorDatos = 0; 
 
-void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::JoyConstPtr& joy)
+void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::TwistStampedConstPtr& twistStamped)
 {
-  if ( joy->axes[ 2 ] == 1 ) {
-    return;
-  }
   // write : counter x y z
+  /*
   FILE* imagenDataFile;
+  
   imagenDataFile = fopen( rutaMap, "a" );
-  fprintf( imagenDataFile, "%u %f %f\n",
-    contadorDatos, joy->axes[1] + joy->axes[0], joy->axes[3]
+
+  fprintf( imagenDataFile, "%d %f %f\n",
+    contadorDatos, twistStamped->twist.linear.x, twistStamped->twist.linear.z
     );
   fclose( imagenDataFile );
+  */
 
   // encode imageCall
   cv_bridge::CvImageConstPtr cv_ptr;
@@ -40,13 +41,29 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::Jo
   catch (cv_bridge::Exception& e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", imageCall->encoding.c_str());
   }
-  
+
+  if ( twistStamped->twist.angular.z == 0 ) {
+    cv::imwrite( rutaImagenes + "avanzar/" + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
+    std::cout << "[AVANZAR]";
+  } else if ( twistStamped->twist.angular.z > 0 ) {
+    cv::imwrite( rutaImagenes + "izquierda/" + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
+    std::cout << "[IZQUIERDA]";
+  } else {
+    cv::imwrite( rutaImagenes + "derecha/" + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
+    std::cout << "[DERECHA]";
+  }
+
+  std::cout << 
+  " = [x: " << twistStamped->twist.linear.x  <<
+  " z: " << twistStamped->twist.angular.z <<
+  " stamp: " << twistStamped->header.stamp << "]\n";
+
   // save image
-  cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
+  //cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
 
   ++contadorDatos;
 
-  std::cout << "nueva captura\n";
+  
 }
 
 /*
@@ -60,8 +77,8 @@ class ImageConverter
 private:
   ros::NodeHandle nh;
   message_filters::Subscriber<sensor_msgs::Image> sub_image;
-  message_filters::Subscriber<sensor_msgs::Joy> sub_twist;
-  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, sensor_msgs::Joy> MySyncPolicy;
+  message_filters::Subscriber<geometry_msgs::TwistStamped> sub_twist;
+  typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, geometry_msgs::TwistStamped> MySyncPolicy;
   typedef message_filters::Synchronizer<MySyncPolicy> Sync;
   boost::shared_ptr<Sync> sync_;
 

@@ -60,3 +60,12 @@ Mostrar valores del nodo
 ```sh
 rostopic echo joy
 ```
+
+# Teclado
+```sh
+catkin_make
+roslaunch turtlebot_gazebo_multiple create_multi_robot.launch
+rosrun send_velocity_commands send_velocity_commands_node
+rosrun listener listener
+rosrun puente puente
+```

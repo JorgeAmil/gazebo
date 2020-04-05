@@ -13,8 +13,8 @@ private:
   ros::NodeHandle nh_;
   ros::NodeHandle nh_stamp_;
   //! We will be publishing to the "/base_controller/command" topic to issue commands
-  ros::Publisher cmd_vel_pub_;
   ros::Publisher cmd_stamp_pub_;
+  ros::Publisher cmd_pub_;
   // teclas
   char teclas_ [4];
 
@@ -25,12 +25,12 @@ public:
     nh_ = nh;
     //set up the publisher for the cmd_vel topic
     ///robot1/mobile_base/commands/velocity
-    cmd_vel_pub_ = nh_.advertise<geometry_msgs::TwistStamped>("chatter", 1);
-    cmd_stamp_pub_ = nh_stamp_.advertise<geometry_msgs::Twist>("/robot1/mobile_base/commands/velocity", 1);
-    teclas_[0] = 'w';
-    teclas_[1] = 'a';
-    teclas_[2] = 'd';
-    teclas_[3] = 'p';
+    cmd_stamp_pub_ = nh_.advertise<geometry_msgs::TwistStamped>("chatter", 1);
+    cmd_pub_ = nh_stamp_.advertise<geometry_msgs::Twist>("/robot1/mobile_base/commands/velocity", 1);
+    teclas_[0] = 'w'; // delante
+    teclas_[1] = 'a'; // izquierda
+    teclas_[2] = 'd'; // derecha
+    teclas_[3] = 'p'; // parar bucle infinito
   }
 
   //! Loop forever while sending drive commands based on keyboard input
@@ -50,7 +50,7 @@ public:
     while(nh_.ok() && nh_stamp_.ok()){
 
       std::cin.getline(cmd, 50);
-      if(cmd[0]!=teclas_[0] && cmd[0]!=teclas_[1] && cmd[0]!=teclas_[2] && cmd[0]!=teclas_[3])
+      if(cmd[0]!=teclas_[0] && cmd[0]!=teclas_[1] && cmd[0]!=teclas_[2] && cmd[0]!=teclas_[3] && cmd[0]!=teclas_[4])
       {
         std::cout << "unknown command:" << cmd << "\n";
         continue;
@@ -85,8 +85,8 @@ public:
         " z: " << base_stamp_cmd.twist.angular.z <<
         " stamp: " << base_stamp_cmd.header.stamp << "\n";
 
-      cmd_vel_pub_.publish(base_stamp_cmd);
-      cmd_stamp_pub_.publish(base_cmd);
+      cmd_stamp_pub_.publish(base_stamp_cmd);
+      cmd_pub_.publish(base_cmd);
     }
     return true;
   }

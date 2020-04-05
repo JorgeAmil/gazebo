@@ -2,4 +2,4 @@
 .vscode
 build
 devel
-imagen_data/*
+*.jpg
