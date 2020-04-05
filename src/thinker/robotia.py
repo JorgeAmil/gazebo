@@ -65,16 +65,16 @@ class RosTensorFlow:
         cv2.imshow("Image window", self.lastImage)
         cv2.waitKey(3)
         move_cmd.linear.x = move_cmd.linear.y = move_cmd.angular.z = 0;   
-
+        print(predicciones[-1])
         if (np.argmax(predicciones[-1])) == 0:
-          move_cmd.angular.z += 0.7
-          move_cmd.linear.x += 0.3
+          move_cmd.angular.z += 0.0
+          move_cmd.linear.x += 0.7
         elif (np.argmax(predicciones[-1])) == 2:
           move_cmd.angular.z += -0.7
           move_cmd.linear.x += 0.3
         else:
-          move_cmd.angular.z += 0.0
-          move_cmd.linear.x += 0.7
+          move_cmd.angular.z += 0.7
+          move_cmd.linear.x += 0.3
 
       self.cmd_vel.publish(move_cmd)
     cv2.destroyAllWindows()
