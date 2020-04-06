@@ -29,7 +29,10 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::
 
   fprintf( imagenDataFile, "%d %f %f\n",
     contadorDatos, twistStamped->twist.linear.x, twistStamped->twist.linear.z
+  fprintf( imagenDataFile, "%u %f\n",
+    contadorDatos, joy->axes[3]
     );
+  //fprintf( imagenDataFile, "%u %f %f\n", contadorDatos, joy->axes[1] + joy->axes[0], joy->axes[3]);
   fclose( imagenDataFile );
   */
 
@@ -60,6 +63,8 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const geometry_msgs::
 
   // save image
   //cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
+
+  std::cout << contadorDatos << "\n";
 
   ++contadorDatos;
 
