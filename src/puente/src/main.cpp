@@ -27,9 +27,10 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::Jo
   // write : counter x y z
   FILE* imagenDataFile;
   imagenDataFile = fopen( rutaMap, "a" );
-  fprintf( imagenDataFile, "%u %f %f\n",
-    contadorDatos, joy->axes[1] + joy->axes[0], joy->axes[3]
+  fprintf( imagenDataFile, "%u %f\n",
+    contadorDatos, joy->axes[3]
     );
+  //fprintf( imagenDataFile, "%u %f %f\n", contadorDatos, joy->axes[1] + joy->axes[0], joy->axes[3]);
   fclose( imagenDataFile );
 
   // encode imageCall
@@ -44,9 +45,10 @@ void callback(const sensor_msgs::ImageConstPtr& imageCall, const sensor_msgs::Jo
   // save image
   cv::imwrite( rutaImagenes + std::to_string(contadorDatos) + ".jpg", cv_ptr->image);
 
+  std::cout << contadorDatos << "\n";
+
   ++contadorDatos;
 
-  std::cout << "nueva captura\n";
 }
 
 /*
