@@ -68,13 +68,13 @@ class RosTensorFlow:
         print(predicciones[-1])
         if (np.argmax(predicciones[-1])) == 0:
           move_cmd.angular.z += 0.0
-          move_cmd.linear.x += 0.7
+          move_cmd.linear.x += 0.25
         elif (np.argmax(predicciones[-1])) == 2:
-          move_cmd.angular.z += -0.7
-          move_cmd.linear.x += 0.3
+          move_cmd.angular.z += -0.75
+          move_cmd.linear.x += 0.25
         else:
-          move_cmd.angular.z += 0.7
-          move_cmd.linear.x += 0.3
+          move_cmd.angular.z += 0.75
+          move_cmd.linear.x += 0.25
 
       self.cmd_vel.publish(move_cmd)
     cv2.destroyAllWindows()
