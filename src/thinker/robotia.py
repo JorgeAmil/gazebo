@@ -24,16 +24,12 @@ tensor_entrada = Input(shape=tam_entrada)
 K.set_image_data_format('channels_last')
 
 def obtenerModelo(tam_entrada):
-    modelo_preentrenado = MobileNet(input_shape=tam_entrada,
-                                input_tensor=tensor_entrada,
-                                pooling='avg',
-                                include_top=False,
-                                weights=None)
-    salida = modelo_preentrenado.output
-    prediccion = Dense(3, activation="softmax")(salida)
-    
-    modelo_modificado = Model(inputs=tensor_entrada, outputs=prediccion)
-    return modelo_modificado
+  modelo_preentrenado = MobileNet(input_shape=tam_entrada, input_tensor=tensor_entrada, weights=None)
+  salida = modelo_preentrenado.output
+  prediccion = Dense(2, activation="softmax")(salida)
+  
+  modelo_modificado = Model(inputs=tensor_entrada, outputs=prediccion)
+  return modelo_modificado
 
 modelo = obtenerModelo(tam_entrada)
 
@@ -66,22 +62,15 @@ class RosTensorFlow:
         cv2.waitKey(3)
         move_cmd.linear.x = move_cmd.linear.y = move_cmd.angular.z = 0;   
         print(predicciones[-1])
-        if (np.argmax(predicciones[-1])) == 0:
-          move_cmd.angular.z += 0.0
-          move_cmd.linear.x += 0.25
-        elif (np.argmax(predicciones[-1])) == 2:
-          move_cmd.angular.z += -0.75
-          move_cmd.linear.x += 0.25
-        else:
-          move_cmd.angular.z += 0.75
-          move_cmd.linear.x += 0.25
+        if (np.argmax(predicciones[-1])) == 1:
+          print("Robot detectado")
 
       self.cmd_vel.publish(move_cmd)
     cv2.destroyAllWindows()
 
 def main():
-  modelo.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
-  modelo.load_weights('./ros.hdf5')
+  modelo.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+  modelo.load_weights('./det.hdf5')
   navegacion = RosTensorFlow()
   rospy.init_node('robotia', anonymous=True)
   navegacion.run()
