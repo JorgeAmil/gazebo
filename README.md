@@ -1,10 +1,10 @@
-# clonar y compilar
+# Clonar y compilar
 ```sh
 git clone --recursive https://github.com/JorgeAmil/gazebo.git
 catkin_make
 ```
 
-# packages
+# Packages
 send_velocity_commands
 ```sh
 Dado un caracter (w, a, d) envia un mensaje de tipo Twist al robot
@@ -29,7 +29,7 @@ rosrun autopilot run.py
 el archivo run.py se subscribe a la camara del turtlebot, dada la imagen 
 obtenida llama al modelo para calcular la predicción del angulo a girar 
 ```
-# tensorflow
+# Tensorflow
 Para usar los modulos con tensorflow lanzar:
 ```sh
 source ~/tensorflow/bin/activate
@@ -40,7 +40,13 @@ http://projectsfromtech.blogspot.com/2017/10/visual-object-recognition-in-ros-us
 https://github.com/osrf/tensorflow_object_detector/tree/master/src/object_detection
 ```
 
-# ps3joy
+# Deteccion
+```sh
+roslaunch turtlebot_gazebo_multiple create_multi_robot.launch
+rosrun thinker robotia.py
+```
+
+# PS3joy
 Configurar PS3Joy http://wiki.ros.org/ps3joy/Tutorials
 https://wiki.ros.org/joy/Tutorials
 http://library.isr.ist.utl.pt/docs/roswiki/ps3joy.html
@@ -52,8 +58,14 @@ rosrun mando mando
 rosrun puente puente
 ```
 
-# calibrar
+# Calibrar
 rosrun camera_calibration cameracalibrator.py --approximate 0.1 --size 8x6
 --square 0.108 right:=/robot1/trasera2/trasera2/rgb/image_raw
 left:=/robot1/trasera1/trasera1/rgb/image_raw right_camera:=/robot1/trasera2/
 left_camera:=/robot1/trasera1
+
+# Stereo
+```sh
+roslaunch turtlebot_gazebo_multiple create_multi_robot.launch
+rosrun moduloStereo moduloStereo_node
+```
